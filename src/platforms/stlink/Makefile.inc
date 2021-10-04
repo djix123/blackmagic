@@ -11,9 +11,9 @@ LDFLAGS_BOOT := $(LDFLAGS) --specs=nano.specs -lopencm3_stm32f1 \
 	-Wl,-Map=mapfile -mthumb -mcpu=cortex-m3 -Wl,-gc-sections \
 	-L../libopencm3/lib
 ifeq ($(ST_BOOTLOADER), 1)
-$(info  Load address 0x08004000 for original ST-LinkV2 Bootloader)
+$(info  Load address 0x08000000 for Jigsy BM Probe Clone)
 CFLAGS += -DST_BOOTLOADER -DDFU_SERIAL_LENGTH=25
-LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8004000
+LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8000000
 else
 CFLAGS += -DDFU_SERIAL_LENGTH=9
 LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8002000
