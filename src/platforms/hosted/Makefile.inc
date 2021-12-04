@@ -2,6 +2,8 @@ CC ?= gcc
 SYS = $(shell $(CC) -dumpmachine)
 CFLAGS += -DENABLE_DEBUG -DPLATFORM_HAS_DEBUG
 CFLAGS +=-I ./target -I./platforms/pc
+CFLAGS +=-I /opt/homebrew/include
+LDFLAGS +=-L /opt/homebrew/lib
 
 # Define HOSTED_BMP_ONLY to '0' in order to build the hosted blackmagic
 # executable with support for other probes beside BMP. Default HOSTED_BMP_ONLY
