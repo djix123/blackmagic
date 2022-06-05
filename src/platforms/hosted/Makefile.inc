@@ -1,7 +1,7 @@
 CC ?= gcc
 SYS = $(shell $(CC) -dumpmachine)
 CFLAGS += -DENABLE_DEBUG -DPLATFORM_HAS_DEBUG
-CFLAGS +=-I ./target -I./platforms/pc
+CFLAGS +=-I ./target -I./platforms/pc -I /opt/homebrew/include
 
 # Define HOSTED_BMP_ONLY to '0' in order to build the hosted blackmagic
 # executable with support for other probes beside BMP. Default HOSTED_BMP_ONLY
@@ -47,10 +47,10 @@ HIDAPILIB = hidapi
 endif
 
 ifneq ($(HOSTED_BMP_ONLY), 1)
- $(shell pkg-config --exists libftdi1)
- ifneq ($(.SHELLSTATUS), 0)
-  $(error Please install libftdi1 dependency or set HOSTED_BMP_ONLY to 1)
- endif
+ #$(shell pkg-config --exists libftdi1)
+ #ifneq ($(.SHELLSTATUS), 0)
+ # $(error Please install libftdi1 dependency or set HOSTED_BMP_ONLY to 1)
+ #endif
  LDFLAGS += -lusb-1.0
  CFLAGS += $(shell pkg-config --cflags libftdi1)
  LDFLAGS += $(shell pkg-config --libs libftdi1)
@@ -63,10 +63,10 @@ ifneq ($(HOSTED_BMP_ONLY), 1)
  ifneq (, $(findstring mingw, $(SYS)))
   SRC += hid.c
  else
-  $(shell pkg-config --exists $(HIDAPILIB))
-  ifneq ($(.SHELLSTATUS), 0)
-   $(error Please install $(HIDAPILIB) dependency or set HOSTED_BMP_ONLY to 1)
-  endif
+  #$(shell pkg-config --exists $(HIDAPILIB))
+  #ifneq ($(.SHELLSTATUS), 0)
+  # $(error Please install $(HIDAPILIB) dependency or set HOSTED_BMP_ONLY to 1)
+  #endif
   CFLAGS += $(shell pkg-config --cflags $(HIDAPILIB))
   LDFLAGS += $(shell pkg-config --libs $(HIDAPILIB))
  endif
