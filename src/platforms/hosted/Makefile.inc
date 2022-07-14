@@ -1,7 +1,7 @@
 CC ?= gcc
 SYS = $(shell $(CC) -dumpmachine)
 CFLAGS += -DENABLE_DEBUG -DPLATFORM_HAS_DEBUG
-CFLAGS +=-I ./target
+CFLAGS +=-I ./target -I /opt/homebrew/include
 
 # HOSTED_BMP_ONLY, which defaults to 1 on Windows + MacOS and 0 on Linux,
 # defines whether to build Black Magic Debug App for the Black Magic Firmware
