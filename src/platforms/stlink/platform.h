@@ -140,7 +140,7 @@ int usbuart_debug_write(const char *buf, size_t len);
 extern uint16_t led_idle_run;
 #define LED_IDLE_RUN            led_idle_run
 #define SET_RUN_STATE(state)	{running_status = (state);}
-#define SET_IDLE_STATE(state)	{gpio_set_val(LED_PORT, led_idle_run, state);}
+#define SET_IDLE_STATE(state)	{gpio_set_val(LED_PORT, led_idle_run, !state);}
 #define SET_ERROR_STATE(x)
 
 extern uint32_t detect_rev(void);
