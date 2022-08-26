@@ -54,8 +54,8 @@ void platform_init(void)
 #endif
 	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ]);
 	if (rev == 0) {
-		led_idle_run = GPIO8;
-		srst_pin = SRST_PIN_V1;
+		led_idle_run = GPIO9;
+		srst_pin = SRST_PIN_V2;
 	} else {
 		led_idle_run = GPIO9;
 		srst_pin = SRST_PIN_V2;
