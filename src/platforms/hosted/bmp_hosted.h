@@ -4,7 +4,7 @@
 #include "cl_utils.h"
 
 #if HOSTED_BMP_ONLY != 1
-# include <libusb-1.0/libusb.h>
+# include <libusb.h>
 struct trans_ctx {
 #define TRANS_FLAGS_IS_DONE (1 << 0)
 #define TRANS_FLAGS_HAS_ERROR (1 << 1)
