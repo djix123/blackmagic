@@ -68,8 +68,8 @@ void platform_init(void)
 #else
 	switch (rev) {
 	case 0:
-		led_idle_run = GPIO8;
-		nrst_pin = NRST_PIN_V1;
+		led_idle_run = GPIO9;
+		nrst_pin = NRST_PIN_V2;
 		break;
 	case 0x101:
 		led_idle_run = GPIO9;

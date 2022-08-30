@@ -14,6 +14,9 @@ ifeq ($(ST_BOOTLOADER), 1)
 $(info  Load address 0x08004000 for original ST-LinkV2 Bootloader)
 CFLAGS += -DST_BOOTLOADER -DDFU_SERIAL_LENGTH=25
 LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8004000
+else ifeq ($(ST_BOOTLOADER), None)
+CFLAGS += -DST_BOOTLOADER -DDFU_SERIAL_LENGTH=25
+LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8000000
 else
 CFLAGS += -DDFU_SERIAL_LENGTH=9
 LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8002000
@@ -65,6 +68,8 @@ SRC +=          \
 	stlink_common.c \
 
 ifeq ($(ST_BOOTLOADER), 1)
+all:	blackmagic.bin
+else ifeq ($(ST_BOOTLOADER), None)
 all:	blackmagic.bin
 else
 all:	blackmagic.bin blackmagic_dfu.bin blackmagic_dfu.hex

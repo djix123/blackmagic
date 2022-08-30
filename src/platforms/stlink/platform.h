@@ -208,7 +208,7 @@ extern uint16_t led_idle_run;
 	}
 #define SET_IDLE_STATE(state)                        \
 	{                                                \
-		gpio_set_val(LED_PORT, led_idle_run, state); \
+		gpio_set_val(LED_PORT, led_idle_run, !state); \
 	}
 #define SET_ERROR_STATE(x)
 
