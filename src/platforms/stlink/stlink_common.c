@@ -20,8 +20,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <libopencm3/cm3/scb.h>
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/at32/f40x/rcc.h>
+#include <libopencm3/at32/f40x/gpio.h>
 
 #include "platform.h"
 

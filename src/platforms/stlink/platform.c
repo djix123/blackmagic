@@ -24,13 +24,13 @@
 #include "usb.h"
 #include "aux_serial.h"
 
-#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/at32/f40x/rcc.h>
 #include <libopencm3/cm3/scb.h>
 #include <libopencm3/cm3/scs.h>
 #include <libopencm3/cm3/nvic.h>
-#include <libopencm3/stm32/usart.h>
+#include <libopencm3/at32/f40x/usart.h>
 #include <libopencm3/usb/usbd.h>
-#include <libopencm3/stm32/adc.h>
+#include <libopencm3/at32/f40x/adc.h>
 
 uint16_t led_idle_run;
 uint16_t nrst_pin;
@@ -46,7 +46,10 @@ void platform_init(void)
 {
 	rev = detect_rev();
 	SCS_DEMCR |= SCS_DEMCR_VC_MON_EN;
-	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE8_72MHZ]);
+	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSI_168MHZ]);
+	rcc_set_hsi_div(RCC_CFGR3_HSIDIV_NODIV);
+	rcc_set_usb_clock_source(RCC_HSI);
+
 #ifdef BLUEPILL
 	led_idle_run = GPIO13;
 	nrst_pin = NRST_PIN_V1;
