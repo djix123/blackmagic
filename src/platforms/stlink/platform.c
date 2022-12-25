@@ -46,9 +46,9 @@ void platform_init(void)
 {
 	rev = detect_rev();
 	SCS_DEMCR |= SCS_DEMCR_VC_MON_EN;
-	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSI_168MHZ]);
-	rcc_set_hsi_div(RCC_CFGR3_HSIDIV_NODIV);
-	rcc_set_usb_clock_source(RCC_HSI);
+	rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE_168MHZ]);
+	rcc_set_usbpre(RCC_CFGR_USBPRE_PLL_CLK_DIV3_5);
+	rcc_set_usb_clock_source(RCC_PLL);
 
 #ifdef BLUEPILL
 	led_idle_run = GPIO13;
