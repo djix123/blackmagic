@@ -6,17 +6,17 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 OPT_FLAGS = -Os
 CFLAGS += -mcpu=cortex-m3 -mthumb -DSTM32F1 -I../libopencm3/include \
 	-I platforms/stm32
-LDFLAGS_BOOT := $(LDFLAGS) --specs=nano.specs -lopencm3_at32f40x \
+LDFLAGS_BOOT := $(LDFLAGS) --specs=nano.specs \
 	-Wl,-T,platforms/stm32/stlink.ld -nostartfiles -lc \
 	-Wl,-Map=mapfile -mthumb -mcpu=cortex-m3 -Wl,-gc-sections \
 	-L../libopencm3/lib
 ifeq ($(ST_BOOTLOADER), 1)
 $(info  Load address 0x08004000 for original ST-LinkV2 Bootloader)
 CFLAGS += -DST_BOOTLOADER -DDFU_SERIAL_LENGTH=25
-LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8004000
+LDFLAGS = $(LDFLAGS_BOOT) -lopencm3_at32f40x -Wl,-Ttext=0x8004000
 else
 CFLAGS += -DDFU_SERIAL_LENGTH=9
-LDFLAGS = $(LDFLAGS_BOOT) -Wl,-Ttext=0x8002000
+LDFLAGS = $(LDFLAGS_BOOT) -lopencm3_at32f40x -Wl,-Ttext=0x8002000
 endif
 
 ifeq ($(ENABLE_DEBUG), 1)
@@ -51,7 +51,7 @@ all:	blackmagic.bin blackmagic_dfu.bin blackmagic_dfu.hex
 endif
 blackmagic_dfu.elf: usbdfu.o dfucore.o dfu_f1.o stlink_common.o serialno.o
 	@echo "  LD      $@"
-	$(Q)$(CC) $^ -o $@ $(LDFLAGS_BOOT)
+	$(Q)$(CC) $^ -o $@ $(LDFLAGS_BOOT) -lopencm3_stm32f1
 
 host_clean:
 	-$(Q)$(RM) *.bin *elf *hex
